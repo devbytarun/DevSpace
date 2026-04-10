@@ -53,6 +53,7 @@
         <a class="s-item">Pomodoro</a>
         <a class="s-item">Snippets</a>
         <a class="s-item">Tasks</a>
+        <a class="s-item">Chatbot</a>
         <a class="s-item">Settings</a>
       </div>
 
@@ -66,23 +67,127 @@
     </div>
 
 
-<div class="main">
-  
+    <div class="main">
 
-  <div class="main-topbar">
-    <span class="s-credit">Made with ❤️ by 
-      <a href="https://linkedin.com/in/devbytarun" target="_blank">Devbytarun</a>
-    </span>
-    <div class="dots">
-      <span class="dot red"></span>
-      <span class="dot yellow"></span>
-      <span class="dot green"></span>
+
+      <div class="main-topbar">
+        <span class="s-credit">Made with ❤️ by
+          <a href="https://linkedin.com/in/devbytarun" target="_blank">Devbytarun</a>
+        </span>
+        <div class="dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+      </div>
+
+      <div class="card" id="github-card">
+        <div class="card-title">GITHUB</div>
+        <div class="gh-row">
+
+          <div class="gh-left">
+            <div class="gh-top">
+
+
+              <div class="gh-avatar" id="ghAvatar">T</div>
+              <div>
+                <div class="gh-name" id="ghName">Name</div>
+                <div class="gh-handle" id="ghHandle">@username</div>
+              </div>
+            </div>
+
+
+            <div class="stats-grid">
+              <div class="stat">
+                <div class="stat-val" id="ghRepos">-</div>
+                <div class="stat-label">Repos</div>
+              </div>
+              <div class="stat">
+                <div class="stat-val" id="ghFollowers">-</div>
+                <div class="stat-label">Followers</div>
+              </div>
+              <div class="stat">
+                <div class="stat-val" id="ghFollowing">-</div>
+                <div class="stat-label">Following</div>
+              </div>
+              <div class="stat">
+                <div class="stat-val" id="ghStars">-</div>
+                <div class="stat-label">Stars</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="gh-mid">
+            <div class="stat-val" id="ghContributions">-</div>
+            <div class="stat-label">Total Contributions</div>
+            <div class="gh-divider"></div>
+            <div class="streak-circle">
+              <div class="stat-val" id="ghStreak">-</div>
+            </div>
+            <div class="stat-label">Current Streak</div>
+          </div>
+
+          <div class="gh-right">
+            <div class="stat-label">Contribution Graph</div>
+            <img id="streakImg" src="" alt="GitHub Streak Stats" style="width:100%;border-radius:8px;margin-top:6px;" />
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+
+      <div class="row-2">
+
+        <div class="card" id="chatbot-card">
+          <div class="card-title">AI CHATBOT</div>
+          <div class="chat-messages" id="chatMessages">
+          </div>
+          <div class="chat-input-row">
+            <input type="text" id="chatInput" placeholder="Ask anything..." />
+            <button id="chatSend">Send</button>
+          </div>
+        </div>
+
+        <div class="card" id="tasks-card">
+          <div class="card-title">TODAY'S TASKS</div>
+          <div id="taskList"></div>
+          <div class="task-input-row">
+            <input type="text" id="taskInput" placeholder="Add a task..." />
+            <button id="taskAdd">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      
+<div class="row-3">
+
+  
+  <div class="card" id="snippets-card">
+    <div class="card-title">CODE SNIPPETS</div>
+    <div id="snipList"></div>
+    <div class="snip-input-row">
+      <input type="text" id="snipName" placeholder="Snippet name..." />
+      <input type="text" id="snipCode" placeholder="Paste code here..." />
+      <button id="snipSave">+ Save</button>
     </div>
   </div>
 
   
+  <div class="card" id="pomodoro-card">
+    <div class="card-title">POMODORO</div>
+    <div class="pomo-time" id="pomoTime">25:00</div>
+    <div class="pomo-label" id="pomoLabel">Ready to focus?</div>
+    <div class="pomo-btns">
+      <button id="pomoStart">▶ Start</button>
+      <button id="pomoReset">↺ Reset</button>
+    </div>
+  </div>
 
 </div>
+    </div>
   </div>
 
 
@@ -91,4 +196,3 @@
 </body>
 
 </html>
-
