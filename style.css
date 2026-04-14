@@ -1284,11 +1284,11 @@ body,
 #section-dashboard {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 0.5rem;
   padding-bottom: 0.9rem;
 }
 
-/* Final mobile overrides (kept at file end to win cascade) */
+
 @media (max-width: 920px) {
   #section-dashboard {
     gap: 0.5rem;
