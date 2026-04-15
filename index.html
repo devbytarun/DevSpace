@@ -46,10 +46,18 @@
 
     <div class="sidebar">
 
-      <div class="s-logo">Dev<span>Space</span></div>
+      <div class="sidebar-head">
+        <div class="s-logo">Dev<span>Space</span></div>
+        <button id="mobileMenuToggle" class="mobile-menu-btn" type="button" aria-label="Toggle navigation menu"
+          aria-expanded="false" aria-controls="sidebarNav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
 
 
-      <div class="s-nav">
+      <div class="s-nav" id="sidebarNav" aria-hidden="false">
         <a class="s-item active" data-section="dashboard">Dashboard</a>
         <a class="s-item" data-section="chatbot">Chatbot</a>
         <a class="s-item" data-section="tasks">Tasks</a>

@@ -35,6 +35,10 @@ const obGithubInput = byId("ob-github");
 const obError = byId("obError");
 const onboardingEl = byId("onboarding");
 const dashboardEl = byId("dashboard");
+const sidebarEl = document.querySelector(".sidebar");
+const sidebarNavEl = byId("sidebarNav");
+const mobileMenuToggleEl = byId("mobileMenuToggle");
+const mobileNavMedia = window.matchMedia("(max-width: 920px)");
 
 const chatViews = [
   {
@@ -276,8 +280,30 @@ function logoutDashboard() {
 
 function initNavigation() {
   document.querySelectorAll(".s-item").forEach((item) => {
-    item.addEventListener("click", () => setActiveSection(item.dataset.section));
+    item.addEventListener("click", () => {
+      setActiveSection(item.dataset.section);
+      if (mobileNavMedia.matches) setMobileMenuOpen(false);
+    });
   });
+
+  if (mobileMenuToggleEl) {
+    mobileMenuToggleEl.addEventListener("click", () => {
+      if (!mobileNavMedia.matches) return;
+      const shouldOpen = !sidebarEl?.classList.contains("menu-open");
+      setMobileMenuOpen(shouldOpen);
+    });
+  }
+
+  document.addEventListener("click", (event) => {
+    if (!mobileNavMedia.matches) return;
+    if (!sidebarEl?.classList.contains("menu-open")) return;
+    if (!(event.target instanceof Element)) return;
+    if (sidebarEl.contains(event.target)) return;
+    setMobileMenuOpen(false);
+  });
+
+  window.addEventListener("resize", syncMobileMenuState);
+  syncMobileMenuState();
 }
 
 function setActiveSection(sectionName) {
@@ -297,6 +323,28 @@ function setActiveSection(sectionName) {
   if (sectionName === "chatbot") renderChat();
   if (sectionName === "tasks") renderTasks();
   if (sectionName === "snippets") renderSnippets();
+}
+
+function setMobileMenuOpen(shouldOpen) {
+  if (!sidebarEl || !sidebarNavEl || !mobileMenuToggleEl) return;
+  sidebarEl.classList.toggle("menu-open", shouldOpen);
+  mobileMenuToggleEl.setAttribute("aria-expanded", String(shouldOpen));
+  sidebarNavEl.setAttribute("aria-hidden", String(!shouldOpen));
+}
+
+function syncMobileMenuState() {
+  if (!sidebarNavEl || !mobileMenuToggleEl) return;
+
+  if (!mobileNavMedia.matches) {
+    sidebarEl?.classList.remove("menu-open");
+    mobileMenuToggleEl.setAttribute("aria-expanded", "false");
+    sidebarNavEl.setAttribute("aria-hidden", "false");
+    return;
+  }
+
+  const isOpen = sidebarEl?.classList.contains("menu-open") || false;
+  mobileMenuToggleEl.setAttribute("aria-expanded", String(isOpen));
+  sidebarNavEl.setAttribute("aria-hidden", String(!isOpen));
 }
 
 function loadSettings() {
