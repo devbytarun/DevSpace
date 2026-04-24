@@ -1098,7 +1098,7 @@ async function handleChatSend(rawMessage) {
     chatHistory.push({
       role: "assistant",
       text:
-        "I could not reach the backend. For local use, run Express at http://localhost:3000 with OPENAI_API_KEY in .env. For Netlify, set OPENAI_API_KEY in site environment variables."
+        "I could not reach the backend. For local use, run Express at http://localhost:3000 with GOOGLE_API_KEY in .env. For Netlify, set GOOGLE_API_KEY in site environment variables."
     });
   } finally {
     chatPending = false;

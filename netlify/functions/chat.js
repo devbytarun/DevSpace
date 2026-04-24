@@ -1,4 +1,4 @@
-const OpenAI = require("openai");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -7,14 +7,15 @@ const corsHeaders = {
   "Content-Type": "application/json"
 };
 
-let cachedClient = null;
+let cachedModel = null;
 
-function getClient() {
-  if (cachedClient) return cachedClient;
-  const apiKey = process.env.OPENAI_API_KEY;
+function getModel() {
+  if (cachedModel) return cachedModel;
+  const apiKey = process.env.GOOGLE_API_KEY;
   if (!apiKey) return null;
-  cachedClient = new OpenAI({ apiKey });
-  return cachedClient;
+  const genAI = new GoogleGenerativeAI(apiKey);
+  cachedModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  return cachedModel;
 }
 
 exports.handler = async (event) => {
@@ -30,12 +31,12 @@ exports.handler = async (event) => {
     };
   }
 
-  const client = getClient();
-  if (!client) {
+  const model = getModel();
+  if (!model) {
     return {
       statusCode: 500,
       headers: corsHeaders,
-      body: JSON.stringify({ reply: "Missing OPENAI_API_KEY in Netlify environment variables." })
+      body: JSON.stringify({ reply: "Missing GOOGLE_API_KEY in Netlify environment variables." })
     };
   }
 
@@ -60,21 +61,20 @@ exports.handler = async (event) => {
   }
 
   try {
-    const response = await client.responses.create({
-      model: process.env.OPENAI_MODEL || "gpt-4o-mini",
-      input: message
-    });
+    const result = await model.generateContent(message);
+    const response = await result.response;
+    const text = response.text();
 
     return {
       statusCode: 200,
       headers: corsHeaders,
-      body: JSON.stringify({ reply: response.output_text || "No reply" })
+      body: JSON.stringify({ reply: text || "No reply" })
     };
   } catch (error) {
     const status = Number(error?.status) || 500;
     const fallback =
       status === 401
-        ? "OPENAI_API_KEY is invalid for this deployment."
+        ? "GOOGLE_API_KEY is invalid for this deployment."
         : "Failed to generate reply";
 
     return {
