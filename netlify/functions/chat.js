@@ -14,7 +14,7 @@ function getModel() {
   const apiKey = process.env.GOOGLE_API_KEY;
   if (!apiKey) return null;
   const genAI = new GoogleGenerativeAI(apiKey);
-  cachedModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  cachedModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
   return cachedModel;
 }
 
